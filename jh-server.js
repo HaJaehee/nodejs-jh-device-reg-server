@@ -73,7 +73,7 @@ function insertQuery (device_reg_id){
 			}
 			
 		});
-}//insert 'device_reg_id' tuple into 'device' table
+}//insert 'device_reg_id' record into 'device' table
 
 function onConnection(socket){
 	console.log('connected...');
