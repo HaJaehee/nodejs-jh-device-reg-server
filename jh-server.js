@@ -48,14 +48,16 @@ function onRequest(request, response) {
 				request.on('end',function(){
 				var POST = qs.parse(body); //POST data retrieval
 				console.log(POST)
-				insertQuery(POST.device_reg_id);
+				if (POST.device_reg_id!=undefined)
+					insertQuery(POST.device_reg_id);
 		 });
     }//when request method is POST
 
 	 else if(request.method=='GET') {
 		 var url_parts = url.parse(request.url,true); //GET data retrieval
 		 console.log(url_parts.query);
-		 insertQuery(url_parts.query.device_reg_id);
+		 if (POST.device_reg_id!=undefined)
+		 	insertQuery(url_parts.query.device_reg_id);
 	 }//when request method is GET
 	
 	response.writeHead(200,{'Content-Type' : 'text/plain'});
