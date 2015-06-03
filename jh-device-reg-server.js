@@ -42,15 +42,20 @@ function onRequest(request, response) {
 	console.log('requested...');
 	if(request.method=='POST') {
 	    var body='';
-				request.on('data', function (data) {
-					body +=data;
-				});
-				request.on('end',function(){
-				var POST = qs.parse(body); //POST data retrieval
-				console.log(POST)
-				if (POST.device_reg_id!=undefined)
-					insertQuery(POST.device_reg_id);
-		 });
+		request.on('data', function (data) {
+			body +=data;
+		});
+		request.on('end',function(){
+		var POST = qs.parse(body); //POST data retrieval
+		console.log(POST)
+		if (POST.device_reg_id!=undefined)
+			insertQuery(POST.device_reg_id);
+			
+			
+		response.writeHead(200,{'Content-Type' : 'text/plain'});
+		response.write('device is registered');
+		response.end();
+	 });
     }//when request method is POST
 
 	 else if(request.method=='GET') {
@@ -58,23 +63,22 @@ function onRequest(request, response) {
 		 console.log(url_parts.query);
 		 if (POST.device_reg_id!=undefined)
 		 	insertQuery(url_parts.query.device_reg_id);
+		 	
+		 	
+		 response.writeHead(200,{'Content-Type' : 'text/plain'});
+		 response.write('device is registered');
+		 response.end();
 	 }//when request method is GET
-	
-	response.writeHead(200,{'Content-Type' : 'text/plain'});
-	response.write('device is registered');
-	response.end();
 };
 
 function insertQuery (device_reg_id){
-	
 	var query = dbconnection.query('insert into device (device_reg_id) values("'+device_reg_id+'") ',function(err,result){
-			if (err)
-			{
-				console.error('err:'+err);
-				throw err;
-			}
-			
-		});
+		if (err)
+		{
+			console.error('err:'+err);
+			throw err;
+		}
+	});
 }//insert 'device_reg_id' record into 'device' table
 
 function onConnection(socket){
