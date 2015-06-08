@@ -61,7 +61,7 @@ function onRequest(request, response) {
 	 else if(request.method=='GET') {
 		 var url_parts = url.parse(request.url,true); //GET data retrieval
 		 console.log(url_parts.query);
-		 if (POST.device_reg_id!=undefined)
+		 if (url_parts.query.device_reg_id!=undefined)
 		 	insertQuery(url_parts.query.device_reg_id);
 		 	
 		 	
